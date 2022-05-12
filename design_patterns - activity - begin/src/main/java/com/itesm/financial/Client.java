@@ -31,5 +31,9 @@ public class Client {
         String htmlReport = webReport.createContent(result);
         // System.out.println(htmlReport);
         webReport.createFile(htmlReport);
+
+        PrintReport printReport = new PrintReport();
+        String mdReport = printReport.createContent(result);
+        printReport.createFile(mdReport);
     }
 }

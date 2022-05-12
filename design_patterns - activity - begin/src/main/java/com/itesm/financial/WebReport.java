@@ -5,19 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class WebReport {
-
-    public String createContent(List<Ride> rides) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(createHeaders("Taxi Report"));
-        builder.append(createTableHeaders());
-        rides.forEach( ride -> {
-            builder.append(addRide(ride));
-        });
-        builder.append(closeTableHeaders());
-
-        return builder.toString();
-    }
+public class WebReport extends Report{
 
     public void createFile(String content) throws IOException {
         FileWriter fileWriter = new FileWriter("financial-report.html");
@@ -26,11 +14,11 @@ public class WebReport {
         printWriter.close();
     }
 
-    private String createHeaders(String title){
+    protected String createHeaders(String title){
         return "<h1>" + title + "</h1>";
     }
 
-    private String createTableHeaders() {
+    protected String createTableHeaders() {
         return "<table>" +
                 "<tr>" +
                     "<th> TaxiID </th>" +
@@ -42,11 +30,11 @@ public class WebReport {
                 "</tr>";
     }
 
-    private String closeTableHeaders() {
+    protected String closeTableHeaders() {
         return "</table>";
     }
 
-    private String addRide(Ride ride) {
+    protected String addRide(Ride ride) {
         return "<tr>" +
                 "<td>" + ride.getTaxiId() + "</td>" +
                 "<td>" + ride.getPickUpTime() + "</td>" +
@@ -57,7 +45,7 @@ public class WebReport {
                 "</tr>";
     }
 
-    private String formatAmount(double amount) {
+    protected String formatAmount(double amount) {
         if(amount < 0) {
             return "<span style='color:red'>" + amount + "</span>";
         }
